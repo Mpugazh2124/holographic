@@ -1,17 +1,13 @@
 import { useGLTF } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
 
-export function HumanAnatomyModel({ onSelect, selectedPartRef }) {
-  const { scene } = useGLTF('/models/human_anatomy.glb', true); // ✅ Corrected path
+export default function HumanAnatomyModel({ onSelect, selectedPartRef }) {
+  const { scene } = useGLTF('/models/human_anatomy.glb', true);
   const animationRefs = useRef({});
 
   useEffect(() => {
-    if (!scene) {
-      console.error('GLTF model failed to load. Check the file path.');
-      return;
-    }
+    if (!scene) return;
 
     scene.traverse((child) => {
       if (child.isMesh) {
@@ -35,9 +31,7 @@ export function HumanAnatomyModel({ onSelect, selectedPartRef }) {
         };
       }
     });
-
-    console.log('✅ Model loaded successfully:', scene);
-  }, [scene, onSelect, selectedPartRef]);
+  }, [scene]);
 
   useFrame(() => {
     Object.entries(animationRefs.current).forEach(([name, animating]) => {
@@ -51,5 +45,5 @@ export function HumanAnatomyModel({ onSelect, selectedPartRef }) {
     });
   });
 
-  return scene ? <primitive object={scene} scale={0.01} /> : null; // ✅ Add scale
+  return scene ? <primitive object={scene} scale={0.01} /> : null;
 }
