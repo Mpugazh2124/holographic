@@ -1,0 +1,9 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #000; /* Add a black background for better visibility */
+}
+canvas {
+  display: block;
+  background-color: #1e1e1e; /* Add a dark gray background to the canvas */
+}
